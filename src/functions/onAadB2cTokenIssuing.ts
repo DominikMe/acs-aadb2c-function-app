@@ -1,3 +1,4 @@
+import { CommunicationIdentityClient } from "@azure/communication-identity";
 import { app, HttpRequest, HttpResponseInit, input, InvocationContext, output } from "@azure/functions";
 
 interface TableRow {
@@ -66,7 +67,9 @@ export async function onAadB2cTokenIssuing(request: HttpRequest, context: Invoca
 };
 
 const createAcsUser = async(): Promise<string> => {
-    return btoa(Math.random().toString().substring(2, 5));
+    const identityClient = new CommunicationIdentityClient(process.env.CommunicationConnectionString);
+    const user = await identityClient.createUser();
+    return user.communicationUserId;
 };
 
 app.http('onAadB2cTokenIssuing', {
