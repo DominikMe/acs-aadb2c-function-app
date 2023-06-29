@@ -12,8 +12,8 @@ const tableInput = input.generic({
     connection: 'TableStorageConnectionString',
     direction: 'in',
     name: 'tableBindingIn',
-    partitionKey: '{client_id}_{object_id}',
-    rowKey: '{object_id}'
+    partitionKey: '{client_id}_{objectId}',
+    rowKey: '{objectId}'
 });
 
 const tableOutput = output.generic({
@@ -27,16 +27,16 @@ const tableOutput = output.generic({
 export async function onAadB2cTokenIssuing(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log(`Http function processed request for url "${request.url}"`);
 
-    const { client_id, object_id } = await request.json() as Record<string, string>;
+    const { client_id, objectId } = await request.json() as Record<string, string>;
 
-    if (!client_id || !object_id) {
+    if (!client_id || !objectId) {
         return {
             status: 400
         };
     }
 
-    const PartitionKey = `${client_id}_${object_id}`;
-    const RowKey = object_id;
+    const PartitionKey = `${client_id}_${objectId}`;
+    const RowKey = objectId;
 
     const rows = context.extraInputs.get(tableInput) as TableRow[];
 
@@ -60,7 +60,7 @@ export async function onAadB2cTokenIssuing(request: HttpRequest, context: Invoca
         jsonBody: {
             version: '1.0.0',
             action: 'continue',
-            extension_acsUserId: AcsUserId
+            extension_acs_user_id: AcsUserId
         }
     };
 };

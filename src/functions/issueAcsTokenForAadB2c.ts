@@ -16,7 +16,7 @@ export async function issueAcsTokenForAadB2c(request: HttpRequest, context: Invo
         return { status: 401 };
     }
 
-    const acsUserId = payload['extension_acsUserId'] as string;
+    const acsUserId = payload['extension_acs_user_id'] as string;
     const acsUserToken = await getAcsUserToken(acsUserId, payload.exp);
 
     return {
