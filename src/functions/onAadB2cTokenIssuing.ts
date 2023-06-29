@@ -42,7 +42,7 @@ export async function onAadB2cTokenIssuing(request: HttpRequest, context: Invoca
     const rows = context.extraInputs.get(tableInput) as TableRow[];
 
     if (rows.length > 1) {
-        console.log("Found more than user entry!");
+        context.log("Found more than user entry!");
     }
 
     var AcsUserId = rows.find(x => x.PartitionKey === PartitionKey && x.RowKey === RowKey)?.AcsUserId;

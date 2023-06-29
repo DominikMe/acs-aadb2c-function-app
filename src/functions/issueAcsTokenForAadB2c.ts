@@ -11,7 +11,7 @@ export async function issueAcsTokenForAadB2c(request: HttpRequest, context: Invo
     }
 
     const token = authHeader.substring("Bearer ".length);
-    var { success, payload } = await verifyAadB2cToken(token);
+    var { success, payload } = await verifyAadB2cToken(token, context);
 
     if (!success) {
         return { status: 401 };

@@ -1,4 +1,5 @@
 
+import { InvocationContext } from "@azure/functions";
 import { JWTPayload, createRemoteJWKSet, jwtVerify } from "jose";
 
 const verifyOptions = {
@@ -8,14 +9,14 @@ const verifyOptions = {
 
 const jwksUrl = new URL(process.env.OpenIdJwksUrl);
 
-export const verifyAadB2cToken = async (token: string): Promise<{ success: boolean, payload: JWTPayload}> => {
+export const verifyAadB2cToken = async (token: string, context: InvocationContext): Promise<{ success: boolean, payload: JWTPayload}> => {
     try {
         const keys = await createRemoteJWKSet(jwksUrl);
         const result = await jwtVerify(token, keys, verifyOptions);
         return { success: true, payload: result.payload };
     }
     catch (e) {
-        console.log(e);
+        context.log(e);
         return { success: false, payload: null };
     }
 }; 
