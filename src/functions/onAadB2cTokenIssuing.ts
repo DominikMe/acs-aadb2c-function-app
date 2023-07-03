@@ -74,7 +74,7 @@ const createAcsUser = async(): Promise<string> => {
 
 app.http('onAadB2cTokenIssuing', {
     methods: ['GET', 'POST'],
-    authLevel: 'anonymous',
+    authLevel: 'function',
     extraInputs: [tableInput],
     extraOutputs: [tableOutput],
     handler: onAadB2cTokenIssuing

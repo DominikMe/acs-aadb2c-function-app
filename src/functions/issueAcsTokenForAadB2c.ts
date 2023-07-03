@@ -44,6 +44,6 @@ const getAcsUserToken = async (acsUserId: string, scopes: string, exp: number): 
 
 app.http('issueAcsTokenForAadB2c', {
     methods: ['GET'],
-    authLevel: 'anonymous',
+    authLevel: 'function',
     handler: issueAcsTokenForAadB2c
 });
