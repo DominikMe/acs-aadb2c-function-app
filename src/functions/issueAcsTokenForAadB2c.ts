@@ -1,4 +1,4 @@
-import { app, HttpRequest, HttpResponseInit, InvocationContext, input, output } from "@azure/functions";
+import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { verifyAadB2cToken } from "../auth/b2cToken";
 import { CommunicationIdentityClient, TokenScope } from "@azure/communication-identity";
 
